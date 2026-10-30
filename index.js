@@ -6,11 +6,6 @@ import { createRemoteJWKSet, jwtVerify } from 'jose';
 const app = express()
 const PORT = 8000
 
-app.use(cors())
-app.use(express.json())
-
-
-
 
 const client = new MongoClient(process.env.MONGODB_URI);
 
@@ -23,6 +18,9 @@ export async function connectToMongoDB() {
         console.dir(err);
     }
 }
+
+app.use(cors())
+app.use(express.json())
 
 const mongoClient = await connectToMongoDB()
 const db = mongoClient.db('wanderlust')
@@ -130,3 +128,5 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server is runnging at ${PORT}`)
 })
+
+export default app
